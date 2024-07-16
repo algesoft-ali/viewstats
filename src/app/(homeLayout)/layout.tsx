@@ -7,10 +7,7 @@ const HomeLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <StoreProvider>
       <Navbar />
-      <div className="min-h-[calc(100vh-138px)]">
-
-      {children}
-      </div>
+      <div className="min-h-[calc(100vh-150px)]">{children}</div>
       <Footer />
     </StoreProvider>
   );
