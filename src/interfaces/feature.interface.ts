@@ -15,7 +15,16 @@ export interface IGetAllResponse<T> {
   };
 }
 
+export interface IQueryParams {
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+  search?: string;
+}
+
 export interface IChannel {
+  _id: string;
   name: string;
   username: string;
   logo?: string;
@@ -26,4 +35,6 @@ export interface IChannel {
   totalViews?: number;
   totalSubscribers?: number;
   totalVideos?: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
