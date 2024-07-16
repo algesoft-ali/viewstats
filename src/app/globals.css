@@ -2,32 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  min-height: 100vh;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Testing */
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #081226;
+    --secondary-background: #f1f3f4;
+    --grey-darker: #747575;
+    --grey-dark: #ababab;
+    --grey-base: #eff1f3;
+    --grey-light: #f1f3f4;
+    --grey-lighter: #fbfbfb;
+    --grey-neutral: #d8dbdd;
+    --grey-text: #292d32;
+    --primary: #ff0000;
+  }
+
+  .dark {
+    --background: #000000;
+    --foreground: #d1cfcf;
+    --secondary-background: #ffffff1a;
+    --grey-base: #fff3;
+    --grey-darker: #d1cfcf;
+    --grey-dark: #747575;
+    --grey-light: #ffffff1a;
+    --grey-lighter: #ffffff1a;
+    --grey-neutral: hsla(0, 0%, 100%, 0.18);
+    --grey-text: #d1cfcf;
+    --primary: #ff0000;
+  }
+}
+
+@layer base {
+  .dark {
+    @apply bg-background text-foreground;
   }
 }
