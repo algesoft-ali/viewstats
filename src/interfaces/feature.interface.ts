@@ -38,3 +38,11 @@ export interface IChannel {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IUser {
+  name: string;
+  email: string;
+  password?: string;
+  googleId?: string;
+  avatar?: string;
+}

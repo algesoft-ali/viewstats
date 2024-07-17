@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "./baseApi";
 import themeSlice from "./features/theme/themeSlice";
+import userSlice from "./features/user/userSlice";
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   theme: themeSlice,
+  user: userSlice,
 });
 
 export const store = configureStore({
