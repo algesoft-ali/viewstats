@@ -4,6 +4,7 @@ const nextConfig = {
     remotePatterns: [
       { hostname: "yt3.googleusercontent.com" },
       { hostname: "flagcdn.com" },
+      { hostname: "lh3.googleusercontent.com" },
     ],
   },
 };

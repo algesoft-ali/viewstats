@@ -8,6 +8,9 @@ import SunIcon from "../icons/SunIcon";
 import clsx from "clsx";
 import YTIcon from "../icons/YTIcon";
 import SelectMenu from "./SelectMenu";
+import { useAppSelector } from "@/lib/hooks";
+import { useGetUserQuery } from "@/lib/features/user/userApi";
+import { getCookie } from "cookies-next";
 
 const topListOptions = [
   {
@@ -45,6 +48,13 @@ const moreToolOptions = [
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
+  const { user } = useAppSelector((state) => state.user);
+  const { isLoading, isSuccess } = useGetUserQuery(
+    {},
+    {
+      skip: getCookie("accessToken") ? false : true,
+    }
+  );
   return (
     <nav className="py-3 px-6 sticky top-0 z-[99] bg-background/50 backdrop-blur-md">
       <div className="max-w-[1920px] flex items-center justify-between">
@@ -87,12 +97,28 @@ const Navbar = () => {
               New
             </span>
           </button>
-          <Link href="/login">
-            <button className="flex items-center gap-4 px-6 border border-grey-base py-2.5 rounded-lg hover:shadow-button duration-200 transition-all">
-              <YTIcon size={20} color="#FF0000" />
-              <span>Sign In</span>
-            </button>
-          </Link>
+          {user ? (
+            <div className="flex items-center gap-3 px-2 border border-grey-base py-1 rounded-lg hover:shadow-button duration-200 transition-all cursor-pointer">
+              <Image
+                src={user?.avatar as string}
+                alt="image"
+                width={40}
+                height={40}
+                className="object-cover block rounded-lg"
+              />
+              <div>
+                <p>{user.name}</p>
+                <p className="text-xs text-grey-dark">{user.email}</p>
+              </div>
+            </div>
+          ) : (
+            <Link href="/login">
+              <button className="flex items-center gap-4 px-6 border border-grey-base py-2.5 rounded-lg hover:shadow-button duration-200 transition-all">
+                <YTIcon size={20} color="#FF0000" />
+                <span>Sign In</span>
+              </button>
+            </Link>
+          )}
           <button
             className={clsx(
               "text-3xl bg-secondary-background p-2 rounded-full duration-200 transition-all",

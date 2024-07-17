@@ -5,7 +5,7 @@ const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // ----- get user info
     getUser: builder.query({
-      query: () => "/user/me",
+      query: () => "/users/me",
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
