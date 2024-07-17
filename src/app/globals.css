@@ -69,3 +69,12 @@ body {
     background-position: 100% 0;
   }
 }
+
+.details ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.scrollbar_hidden::-webkit-scrollbar {
+  display: none;
+}

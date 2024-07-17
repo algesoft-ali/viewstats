@@ -24,7 +24,7 @@ const SearchBarChannelList: FC<IProps> = ({ searchInput }) => {
   return (
     <div
       className={clsx(
-        "overflow-y-auto transition-all duration-200",
+        "overflow-y-auto scrollbar_hidden transition-all duration-200",
         debouncedSearch ? "h-60 border-t border-secondary-background" : "h-0"
       )}
     >

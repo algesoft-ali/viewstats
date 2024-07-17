@@ -74,7 +74,9 @@ const ChannelInfoCard: FC<IProps> = ({ username }) => {
                   @{data?.data?.username}
                 </p>
               </a>
-              <p className="text-grey-dark">{data?.data?.totalVideos} videos</p>
+              <p className="text-grey-dark">
+                {formatNumberWithCommas(data?.data?.totalVideos)} videos
+              </p>
             </div>
           </div>
         </div>

@@ -4,6 +4,8 @@ import ChannelDetailsCard from "@/components/channelDetails/ChannelDetailsCard";
 import ChannelInfoCard from "@/components/channelDetails/ChannelInfoCard";
 import { useGetChannelInfoQuery } from "@/lib/features/channel/channelApi";
 import { formatNumberShort } from "@/utils/formatter";
+import moment from "moment";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 
 const ChannelAboutPage = () => {
@@ -49,6 +51,43 @@ const ChannelAboutPage = () => {
             #1
           </p>
         </ChannelDetailsCard>
+      </div>
+
+      <div className="bg-background border border-secondary-background shadow-card2 rounded-lg mt-6">
+        <div className="flex items-center justify-evenly py-8 border-b border-secondary-background">
+          <Image
+            src={data?.data?.logo as string}
+            alt="logo"
+            width={80}
+            height={80}
+            className="rounded-full object-cover"
+          />
+
+          <div className="text-center">
+            <p className="text-lg text-grey-darker">Category</p>
+            <p className="text-xl font-medium mt-2">
+              {formatNumberShort(data?.data?.category)}
+            </p>
+          </div>
+
+          <div className="text-center">
+            <p className="text-lg text-grey-darker">Channel Age</p>
+            <p className="text-xl font-medium mt-2">
+              {/* remove ago words from the last */}
+              {moment(data?.data?.createDate).fromNow().replace(" ago", "")}
+            </p>
+          </div>
+        </div>
+
+        <div className="px-16 py-12">
+          <h4 className="text-3xl font-semibold mb-8">About</h4>
+          <div
+            className="details"
+            dangerouslySetInnerHTML={{
+              __html: data?.data?.description as string,
+            }}
+          ></div>
+        </div>
       </div>
     </div>
   );
