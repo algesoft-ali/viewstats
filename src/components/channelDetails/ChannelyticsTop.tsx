@@ -1,8 +1,6 @@
-import Image from "next/image";
-import ChannelDetailsCard from "./ChannelDetailsCard";
-import ChannelInfoCard from "./ChannelInfoCard";
 import ArrowDownIcon from "../icons/ArrowDownIcon";
-import ViewsSubscriberChart from "./ViewsSubscriberChart";
+import ChannelChart from "./ChannelChart";
+import ChannelDetailsCard from "./ChannelDetailsCard";
 
 const ChannelyticsTop = () => {
   return (
@@ -50,7 +48,7 @@ const ChannelyticsTop = () => {
         </div>
 
         {/* Graph/Chart */}
-        <ViewsSubscriberChart />
+        <ChannelChart />
       </div>
 
       {/* Right Side */}

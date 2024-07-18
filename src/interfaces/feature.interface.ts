@@ -46,3 +46,12 @@ export interface IUser {
   googleId?: string;
   avatar?: string;
 }
+
+export interface IDailyViews {
+  _id: string;
+  date: Date;
+  views: number;
+  channel: string;
+  video?: string;
+  rate: number;
+}
