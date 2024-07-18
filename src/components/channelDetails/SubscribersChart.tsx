@@ -1,40 +1,34 @@
 "use client";
 
-import { useGetChannelDailyViewsQuery } from "@/lib/features/channel/channelApi";
+import { IDailySubscriber } from "@/interfaces/feature.interface";
+import { useGetChannelDailySubscribersQuery } from "@/lib/features/channel/channelApi";
 import { useAppSelector } from "@/lib/hooks";
 import { formatNumberShort, formatNumberWithCommas } from "@/utils/formatter";
+import clsx from "clsx";
+import * as echarts from "echarts";
 import ReactECharts from "echarts-for-react";
 import moment from "moment";
-import * as echarts from "echarts";
 import { useTheme } from "next-themes";
-import clsx from "clsx";
 import { useEffect, useState } from "react";
-import { IDailyViews } from "@/interfaces/feature.interface";
 import StatusArrowIcon from "../icons/StatusArrowIcon";
 
-const ViewsChart = () => {
+const SubscribersChart = () => {
   // ----- State
   const { theme } = useTheme();
-  const { channelId, startDate, endDate, channelLoading } = useAppSelector(
-    (state) => state.channel
-  );
-  const [lastItem, setLastItem] = useState<IDailyViews | null>(null);
+  const { type, channelId, startDate, endDate, channelLoading } =
+    useAppSelector((state) => state.channel);
+  const [lastItem, setLastItem] = useState<IDailySubscriber | null>(null);
 
   // ----- data fetching
-  const { data, isLoading } = useGetChannelDailyViewsQuery(
+  const { data, isLoading } = useGetChannelDailySubscribersQuery(
     {
       startDate,
       endDate,
       channel: channelId,
     },
     {
-      skip: !channelId || !startDate || !endDate,
+      skip: !channelId || !startDate || !endDate || type !== "subscribers",
     }
-  );
-
-  const totalViews = data?.data?.reduce(
-    (acc: number, curr: any) => acc + curr.views,
-    0
   );
 
   useEffect(() => {
@@ -71,7 +65,7 @@ const ViewsChart = () => {
     },
     series: [
       {
-        data: data?.data?.map((item) => item.views) as number[],
+        data: data?.data?.map((item) => item.subscribers) as number[],
         type: "line",
         lineStyle: {
           width: 3,
@@ -110,7 +104,7 @@ const ViewsChart = () => {
                 <div>
                   <p class="!text-xs text-grey-darker font-medium">${formattedDate}</p>
                   <p class="text-foreground text-lg font-bold">${formatNumberWithCommas(
-                    item?.views
+                    item?.subscribers
                   )}</p>
                 </div>
                 <p style="color: ${
@@ -132,7 +126,7 @@ const ViewsChart = () => {
   return (
     <div className="mt-6">
       <h5 className="font-semibold text-2xl">
-        {formatNumberWithCommas(totalViews) || 0}
+        {formatNumberWithCommas(lastItem?.subscribers) || 0}
       </h5>
       <div className="flex items-center gap-2 text-xs font-semibold mt-1">
         <StatusArrowIcon success={(lastItem?.rate as any) > 0} />
@@ -146,7 +140,7 @@ const ViewsChart = () => {
             ""
           )}
         >
-          {formatNumberShort(totalViews)} ({lastItem?.rate}%)
+          {formatNumberShort(lastItem?.subscribers)} ({lastItem?.rate}%)
         </p>
         <p className="text-grey-dark">
           Past {moment(endDate).diff(moment(startDate), "days") + 1} days
@@ -170,4 +164,4 @@ const ViewsChart = () => {
   );
 };
 
-export default ViewsChart;
+export default SubscribersChart;

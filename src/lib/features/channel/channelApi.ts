@@ -1,5 +1,6 @@
 import {
   IChannel,
+  IDailySubscriber,
   IDailyViews,
   IGetAllResponse,
   IGetResponse,
@@ -58,6 +59,17 @@ const channelApi = baseApi.injectEndpoints({
         params: { startDate, endDate, channel, video },
       }),
     }),
+
+    // ----- get daily subscribers
+    getChannelDailySubscribers: builder.query<
+      IGetAllResponse<IDailySubscriber>,
+      Omit<TDailyViewsRequest, "video">
+    >({
+      query: ({ startDate, endDate, channel }) => ({
+        url: `/daily-subscriber/${channel}`,
+        params: { startDate, endDate },
+      }),
+    }),
   }),
 });
 
@@ -66,4 +78,5 @@ export const {
   useGetPopularChannelsQuery,
   useGetChannelInfoQuery,
   useGetChannelDailyViewsQuery,
+  useGetChannelDailySubscribersQuery,
 } = channelApi;

@@ -9,6 +9,7 @@ import clsx from "clsx";
 import ChannelDetailsCard from "./ChannelDetailsCard";
 import ViewsChart from "./ViewsChart";
 import moment from "moment";
+import SubscribersChart from "./SubscribersChart";
 
 const dateFilterOptions = [
   {
@@ -89,7 +90,13 @@ const ChannelChart = () => {
         </div>
       </div>
 
-      <div className="mt-4">{type === "views" && <ViewsChart />}</div>
+      <div className="mt-4">
+        {type === "views" ? (
+          <ViewsChart />
+        ) : type === "subscribers" ? (
+          <SubscribersChart />
+        ) : null}
+      </div>
     </ChannelDetailsCard>
   );
 };

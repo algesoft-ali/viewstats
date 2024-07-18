@@ -55,3 +55,10 @@ export interface IDailyViews {
   video?: string;
   rate: number;
 }
+export interface IDailySubscriber {
+  _id: string;
+  date: Date;
+  subscribers: number;
+  channel: string;
+  rate: number;
+}
