@@ -1,5 +1,11 @@
+import ChannelyticsTop from "@/components/channelDetails/ChannelyticsTop";
+
 const ChannelyticsPage = () => {
-  return <>Channelytics Page</>;
+  return (
+    <>
+      <ChannelyticsTop />
+    </>
+  );
 };
 
 export default ChannelyticsPage;
