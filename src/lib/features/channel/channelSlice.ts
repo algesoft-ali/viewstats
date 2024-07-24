@@ -3,7 +3,7 @@ import moment from "moment";
 
 const initialState = {
   channelId: "",
-  startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
+  startDate: moment().subtract(28, "days").format("YYYY-MM-DD"),
   endDate: moment().subtract(1, "days").format("YYYY-MM-DD"),
   type: "views",
   channelLoading: true,
