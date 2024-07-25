@@ -1,34 +1,40 @@
 "use client";
 
-import { IDailySubscriber } from "@/interfaces/feature.interface";
-import { useGetChannelDailySubscribersQuery } from "@/lib/features/channel/channelApi";
-import { useAppSelector } from "@/lib/hooks";
-import { formatNumberShort, formatNumberWithCommas } from "@/utils/formatter";
-import clsx from "clsx";
-import * as echarts from "echarts";
-import ReactECharts from "echarts-for-react";
-import moment from "moment";
 import { useTheme } from "next-themes";
+import ChannelDetailsCard from "./ChannelDetailsCard";
+import { useAppSelector } from "@/lib/hooks";
+import { IDailyViews } from "@/interfaces/feature.interface";
 import { useEffect, useState } from "react";
+import { useGetChannelDailyViewsQuery } from "@/lib/features/channel/channelApi";
+import moment from "moment";
+import { formatNumberShort, formatNumberWithCommas } from "@/utils/formatter";
+import ReactECharts from "echarts-for-react";
 import StatusArrowIcon from "../icons/StatusArrowIcon";
+import clsx from "clsx";
 
-const SubscribersChart = () => {
+const DailyViewsChart = () => {
   // ----- State
   const { theme } = useTheme();
-  const { type, channelId, startDate, endDate, channelLoading } =
-    useAppSelector((state) => state.channel);
-  const [lastItem, setLastItem] = useState<IDailySubscriber | null>(null);
+  const { channelId, channelLoading } = useAppSelector(
+    (state) => state.channel
+  );
+  const [lastItem, setLastItem] = useState<IDailyViews | null>(null);
 
   // ----- data fetching
-  const { data, isLoading } = useGetChannelDailySubscribersQuery(
+  const { data, isLoading } = useGetChannelDailyViewsQuery(
     {
-      startDate,
-      endDate,
+      startDate: moment().subtract(28, "days").format("YYYY-MM-DD"),
+      endDate: moment().subtract(1, "days").format("YYYY-MM-DD"),
       channel: channelId,
     },
     {
-      skip: !channelId || !startDate || !endDate || type !== "subscribers",
+      skip: !channelId,
     }
+  );
+
+  const totalViews = data?.data?.reduce(
+    (acc: number, curr: any) => acc + curr.views,
+    0
   );
 
   useEffect(() => {
@@ -57,7 +63,6 @@ const SubscribersChart = () => {
           return formatNumberShort(value);
         },
       },
-      startValue: data?.data[0]?.subscribers,
       splitLine: {
         lineStyle: {
           color: theme === "light" ? "#f1f3f4" : "#ffffff1a",
@@ -66,7 +71,7 @@ const SubscribersChart = () => {
     },
     series: [
       {
-        data: data?.data?.map((item) => item.subscribers) as number[],
+        data: data?.data?.map((item) => item.views) as number[],
         type: "line",
         lineStyle: {
           width: 3,
@@ -105,7 +110,7 @@ const SubscribersChart = () => {
                 <div>
                   <p class="!text-xs text-grey-darker font-medium">${formattedDate}</p>
                   <p class="text-foreground text-lg font-bold">${formatNumberWithCommas(
-                    item?.subscribers
+                    item?.views
                   )}</p>
                 </div>
                 <p style="color: ${
@@ -125,9 +130,10 @@ const SubscribersChart = () => {
   };
 
   return (
-    <div className="mt-6">
+    <ChannelDetailsCard>
+      <h6 className="text-xl mb-6">Daily Views for</h6>
       <h5 className="font-semibold text-2xl">
-        {formatNumberWithCommas(lastItem?.subscribers) || 0}
+        {formatNumberWithCommas(totalViews) || 0}
       </h5>
       <div className="flex items-center gap-2 text-xs font-semibold mt-1">
         <StatusArrowIcon success={(lastItem?.rate as any) > 0} />
@@ -141,11 +147,9 @@ const SubscribersChart = () => {
             ""
           )}
         >
-          {formatNumberShort(lastItem?.subscribers)} ({lastItem?.rate}%)
+          {formatNumberShort(totalViews)} ({lastItem?.rate}%)
         </p>
-        <p className="text-grey-dark">
-          Past {moment(endDate).diff(moment(startDate), "days") + 1} days
-        </p>
+        <p className="text-grey-dark">Past 28 days</p>
       </div>
       <ReactECharts
         style={{
@@ -161,8 +165,8 @@ const SubscribersChart = () => {
           fontSize: 14,
         }}
       />
-    </div>
+    </ChannelDetailsCard>
   );
 };
 
-export default SubscribersChart;
+export default DailyViewsChart;

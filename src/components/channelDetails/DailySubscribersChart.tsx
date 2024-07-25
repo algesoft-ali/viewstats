@@ -5,29 +5,31 @@ import { useGetChannelDailySubscribersQuery } from "@/lib/features/channel/chann
 import { useAppSelector } from "@/lib/hooks";
 import { formatNumberShort, formatNumberWithCommas } from "@/utils/formatter";
 import clsx from "clsx";
-import * as echarts from "echarts";
 import ReactECharts from "echarts-for-react";
 import moment from "moment";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import StatusArrowIcon from "../icons/StatusArrowIcon";
+import ChannelDetailsCard from "./ChannelDetailsCard";
 
-const SubscribersChart = () => {
+const DailySubscribersChart = () => {
   // ----- State
   const { theme } = useTheme();
-  const { type, channelId, startDate, endDate, channelLoading } =
-    useAppSelector((state) => state.channel);
+  const { channelId, channelLoading } = useAppSelector(
+    (state) => state.channel
+  );
   const [lastItem, setLastItem] = useState<IDailySubscriber | null>(null);
+  const [dailySubs, setDailySubs] = useState<IDailySubscriber | []>([]);
 
   // ----- data fetching
   const { data, isLoading } = useGetChannelDailySubscribersQuery(
     {
-      startDate,
-      endDate,
+      startDate: moment().subtract(28, "days").format("YYYY-MM-DD"),
+      endDate: moment().subtract(1, "days").format("YYYY-MM-DD"),
       channel: channelId,
     },
     {
-      skip: !channelId || !startDate || !endDate || type !== "subscribers",
+      skip: !channelId,
     }
   );
 
@@ -102,16 +104,20 @@ const SubscribersChart = () => {
         const formattedDate = moment(item?.date).format("ll");
         return item
           ? `<div style="display: flex; align-items: center; gap: 40px;">
-                <div>
-                  <p class="!text-xs text-grey-darker font-medium">${formattedDate}</p>
-                  <p class="text-foreground text-lg font-bold">${formatNumberWithCommas(
-                    item?.subscribers
-                  )}</p>
-                </div>
-                <p style="color: ${
-                  item?.rate === 0 ? "gray" : item?.rate > 0 ? "#41b616" : "red"
-                }; font-weight: 500;">${item?.rate}%</p>
-              </div>`
+                 <div>
+                   <p class="!text-xs text-grey-darker font-medium">${formattedDate}</p>
+                   <p class="text-foreground text-lg font-bold">${formatNumberWithCommas(
+                     item?.subscribers
+                   )}</p>
+                 </div>
+                 <p style="color: ${
+                   item?.rate === 0
+                     ? "gray"
+                     : item?.rate > 0
+                     ? "#41b616"
+                     : "red"
+                 }; font-weight: 500;">${item?.rate}%</p>
+               </div>`
           : "";
       },
     },
@@ -125,7 +131,8 @@ const SubscribersChart = () => {
   };
 
   return (
-    <div className="mt-6">
+    <ChannelDetailsCard className="mt-6">
+      <h6 className="text-xl mb-6">Daily Subscribers for</h6>
       <h5 className="font-semibold text-2xl">
         {formatNumberWithCommas(lastItem?.subscribers) || 0}
       </h5>
@@ -143,9 +150,7 @@ const SubscribersChart = () => {
         >
           {formatNumberShort(lastItem?.subscribers)} ({lastItem?.rate}%)
         </p>
-        <p className="text-grey-dark">
-          Past {moment(endDate).diff(moment(startDate), "days") + 1} days
-        </p>
+        <p className="text-grey-dark">Past 28 days</p>
       </div>
       <ReactECharts
         style={{
@@ -161,8 +166,8 @@ const SubscribersChart = () => {
           fontSize: 14,
         }}
       />
-    </div>
+    </ChannelDetailsCard>
   );
 };
 
-export default SubscribersChart;
+export default DailySubscribersChart;
