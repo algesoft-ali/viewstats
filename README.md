@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ViewStats Clone
 
-## Getting Started
+This is dummy & testing project of integrating Nest JS backend API's. All of the API's are integrated with RTK Query and the state managed with Redux Toolkit. (Right Now Only 'MrBeast' Channel has daily views & daily subscribers data. Others channel doesn't have that data yet!)
 
-First, run the development server:
+### Visit Here: [https://viewstats-xi.vercel.app/](https://viewstats-xi.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<br>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Resources:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Frontend Code: [https://github.com/algesoft-ali/viewstats](https://github.com/algesoft-ali/viewstats)
+- Backend Code: [https://github.com/algesoft-ali/viewstats_server](https://github.com/algesoft-ali/viewstats_server)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<br>
 
-## Learn More
+## Features:
 
-To learn more about Next.js, take a look at the following resources:
+- Social Media Login (Google).
+- Light Mode & Dark Mode.
+- Channel Analytics by Daily Views, Daily Subscribers.
+- Channel Analytics Filtering.
+- Search channels to view analytics
+- Popular channels
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**Frontend:**
 
-## Deploy on Vercel
+- Next JS
+- Typescript
+- Tailwind CSS
+- Redux Toolkit
+- RTK Query
+- React ECharts
+- Cookies-next
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<br>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**Backend:**
+
+- Nest JS
+- Typescript
+- Mongoose
+- MongoDB
+- JWT
+- Passport JS
