@@ -1,8 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import moment from "moment";
 
-const initialState = {
+interface ChannelState {
+  channelId: string;
+  channelName: string;
+  channelViews: number;
+  channelSubs: number;
+  startDate: string;
+  endDate: string;
+  type: string;
+  channelLoading: boolean;
+}
+
+interface SetChannelInfoPayload {
+  field: keyof ChannelState;
+  value: ChannelState[keyof ChannelState];
+}
+
+const initialState: ChannelState = {
   channelId: "",
+  channelName: "",
+  channelViews: 0,
+  channelSubs: 0,
   startDate: moment().subtract(28, "days").format("YYYY-MM-DD"),
   endDate: moment().subtract(1, "days").format("YYYY-MM-DD"),
   type: "views",
@@ -26,9 +45,18 @@ const channelSlice = createSlice({
     setChannelLoading(state, action) {
       state.channelLoading = action.payload;
     },
+    setChannelInfo(state, action: PayloadAction<SetChannelInfoPayload>) {
+      // @ts-ignore
+      state[action.payload.field] = action.payload.value;
+    },
   },
 });
 
-export const { setChannelId, setDateFilter, setFilterType, setChannelLoading } =
-  channelSlice.actions;
+export const {
+  setChannelId,
+  setDateFilter,
+  setFilterType,
+  setChannelLoading,
+  setChannelInfo,
+} = channelSlice.actions;
 export default channelSlice.reducer;

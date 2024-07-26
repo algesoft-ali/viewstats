@@ -15,7 +15,7 @@ import ChannelDetailsCard from "./ChannelDetailsCard";
 const DailySubscribersChart = () => {
   // ----- State
   const { theme } = useTheme();
-  const { channelId, channelLoading } = useAppSelector(
+  const { channelId, channelLoading, channelName } = useAppSelector(
     (state) => state.channel
   );
   const [lastItem, setLastItem] = useState<IDailySubscriber | null>(null);
@@ -132,7 +132,7 @@ const DailySubscribersChart = () => {
 
   return (
     <ChannelDetailsCard className="mt-6">
-      <h6 className="text-xl mb-6">Daily Subscribers for</h6>
+      <h6 className="text-xl mb-6">Daily Subscribers for <strong>{channelName}</strong></h6>
       <h5 className="font-semibold text-2xl">
         {formatNumberWithCommas(lastItem?.subscribers) || 0}
       </h5>

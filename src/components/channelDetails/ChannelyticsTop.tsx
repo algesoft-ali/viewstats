@@ -1,8 +1,16 @@
+"use client";
+
+import moment from "moment";
 import ArrowDownIcon from "../icons/ArrowDownIcon";
 import ChannelChart from "./ChannelChart";
 import ChannelDetailsCard from "./ChannelDetailsCard";
+import { useAppSelector } from "@/lib/hooks";
+import { formatNumberShort } from "@/utils/formatter";
 
 const ChannelyticsTop = () => {
+  const { startDate, endDate, channelViews, channelSubs } = useAppSelector(
+    (state) => state.channel
+  );
   return (
     <div className="my-6 grid grid-cols-12 items-start gap-6">
       {/* Left Side */}
@@ -12,36 +20,46 @@ const ChannelyticsTop = () => {
           <ChannelDetailsCard className="w-full">
             <div className="flex items-center justify-between">
               <p className="text-xl font-semibold">Views</p>
-              <p className="text-3xl font-semibold">2B</p>
+              <p className="text-3xl font-semibold">
+                {formatNumberShort(channelViews)}
+              </p>
             </div>
             <div className="flex items-center justify-between mt-2">
-              <p className="text-grey-dark text-sm">Last 28 days</p>
+              <p className="text-grey-dark text-sm">
+                Last {moment(endDate).diff(moment(startDate), "days") + 1} days
+              </p>
               <div className="bg-primary text-white flex items-center gap-2 px-3 py-1 rounded-full text-sm">
-                1.25B
+                0B
               </div>
             </div>
           </ChannelDetailsCard>
           <ChannelDetailsCard className="w-full">
             <div className="flex items-center justify-between">
               <p className="text-xl font-semibold">Subs</p>
-              <p className="text-3xl font-semibold">18M</p>
+              <p className="text-3xl font-semibold">
+                {formatNumberShort(channelSubs)}
+              </p>
             </div>
             <div className="flex items-center justify-between mt-2">
-              <p className="text-grey-dark text-sm">Last 28 days</p>
-              <div className="bg-primary text-white flex items-center gap-2 px-3 py-1 rounded-full text-sm">
-                1.25B
+              <p className="text-grey-dark text-sm">
+                Last {moment(endDate).diff(moment(startDate), "days") + 1} days
+              </p>
+              <div className="bg-[#41b616] text-white flex items-center gap-2 px-3 py-1 rounded-full text-sm">
+                0B
               </div>
             </div>
           </ChannelDetailsCard>
           <ChannelDetailsCard className="w-full">
             <div className="flex items-center justify-between">
               <p className="text-lg font-semibold">EST REV</p>
-              <p className="text-2xl font-semibold">$2.4M-6.8M</p>
+              <p className="text-2xl font-semibold">$0-0</p>
             </div>
             <div className="flex items-center justify-between mt-2">
-              <p className="text-grey-dark text-sm">Last 28 days</p>
-              <div className="bg-primary text-white flex items-center gap-2 px-3 py-1 rounded-full text-sm">
-                1.25B
+              <p className="text-grey-dark text-sm">
+                Last {moment(endDate).diff(moment(startDate), "days") + 1} days
+              </p>
+              <div className="bg-[#41b616] text-white flex items-center gap-2 px-3 py-1 rounded-full text-sm">
+                0B
               </div>
             </div>
           </ChannelDetailsCard>

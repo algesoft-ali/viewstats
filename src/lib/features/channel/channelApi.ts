@@ -7,7 +7,11 @@ import {
   IQueryParams,
 } from "@/interfaces/feature.interface";
 import { baseApi } from "@/lib/baseApi";
-import { setChannelId, setChannelLoading } from "./channelSlice";
+import {
+  setChannelId,
+  setChannelInfo,
+  setChannelLoading,
+} from "./channelSlice";
 
 // ---- types
 type TDailyViewsRequest = {
@@ -41,6 +45,9 @@ const channelApi = baseApi.injectEndpoints({
           const { data } = await queryFulfilled;
           if (data) {
             dispatch(setChannelId(data?.data?._id));
+            dispatch(
+              setChannelInfo({ field: "channelName", value: data?.data?.name })
+            );
             dispatch(setChannelLoading(false));
           }
         } catch (error) {
@@ -58,6 +65,20 @@ const channelApi = baseApi.injectEndpoints({
         url: "/daily-views",
         params: { startDate, endDate, channel, video },
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          const totalViews = data?.data?.reduce(
+            (acc: number, curr: any) => acc + curr.views,
+            0
+          );
+          dispatch(
+            setChannelInfo({ field: "channelViews", value: totalViews })
+          );
+        } catch (error) {
+          //
+        }
+      },
     }),
 
     // ----- get daily subscribers
@@ -69,6 +90,19 @@ const channelApi = baseApi.injectEndpoints({
         url: `/daily-subscriber/${channel}`,
         params: { startDate, endDate },
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          const firstItem = data?.data[0];
+          const lastItem = data?.data[data?.data?.length - 1];
+          console.log(firstItem, lastItem);
+          const totalSubs = lastItem?.subscribers - firstItem?.subscribers;
+
+          dispatch(setChannelInfo({ field: "channelSubs", value: totalSubs }));
+        } catch (error) {
+          //
+        }
+      },
     }),
   }),
 });

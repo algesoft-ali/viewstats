@@ -15,7 +15,7 @@ import clsx from "clsx";
 const DailyViewsChart = () => {
   // ----- State
   const { theme } = useTheme();
-  const { channelId, channelLoading } = useAppSelector(
+  const { channelId, channelLoading, channelName } = useAppSelector(
     (state) => state.channel
   );
   const [lastItem, setLastItem] = useState<IDailyViews | null>(null);
@@ -131,7 +131,7 @@ const DailyViewsChart = () => {
 
   return (
     <ChannelDetailsCard>
-      <h6 className="text-xl mb-6">Daily Views for</h6>
+      <h6 className="text-xl mb-6">Daily Views for <strong>{channelName}</strong></h6>
       <h5 className="font-semibold text-2xl">
         {formatNumberWithCommas(totalViews) || 0}
       </h5>
