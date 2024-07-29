@@ -134,7 +134,7 @@ const DailySubscribersChart = () => {
     <ChannelDetailsCard className="mt-6">
       <h6 className="text-xl mb-6">Daily Subscribers for <strong>{channelName}</strong></h6>
       <h5 className="font-semibold text-2xl">
-        {formatNumberWithCommas(lastItem?.subscribers) || 0}
+        {formatNumberWithCommas(lastItem?.subscribers || 0)}
       </h5>
       <div className="flex items-center gap-2 text-xs font-semibold mt-1">
         <StatusArrowIcon success={(lastItem?.rate as any) > 0} />
@@ -148,7 +148,7 @@ const DailySubscribersChart = () => {
             ""
           )}
         >
-          {formatNumberShort(lastItem?.subscribers)} ({lastItem?.rate}%)
+          {formatNumberShort(lastItem?.subscribers || 0)} ({lastItem?.rate || 0}%)
         </p>
         <p className="text-grey-dark">Past 28 days</p>
       </div>
