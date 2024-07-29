@@ -19,7 +19,6 @@ const DailySubscribersChart = () => {
     (state) => state.channel
   );
   const [lastItem, setLastItem] = useState<IDailySubscriber | null>(null);
-  const [dailySubs, setDailySubs] = useState<IDailySubscriber | []>([]);
 
   // ----- data fetching
   const { data, isLoading } = useGetChannelDailySubscribersQuery(
@@ -36,6 +35,8 @@ const DailySubscribersChart = () => {
   useEffect(() => {
     if (data?.data?.length) {
       setLastItem(data?.data[data?.data?.length - 1]);
+    } else {
+      setLastItem(null);
     }
   }, [data?.data]);
 
@@ -132,7 +133,9 @@ const DailySubscribersChart = () => {
 
   return (
     <ChannelDetailsCard className="mt-6">
-      <h6 className="text-xl mb-6">Daily Subscribers for <strong>{channelName}</strong></h6>
+      <h6 className="text-xl mb-6">
+        Daily Subscribers for <strong>{channelName}</strong>
+      </h6>
       <h5 className="font-semibold text-2xl">
         {formatNumberWithCommas(lastItem?.subscribers || 0)}
       </h5>
@@ -148,7 +151,8 @@ const DailySubscribersChart = () => {
             ""
           )}
         >
-          {formatNumberShort(lastItem?.subscribers || 0)} ({lastItem?.rate || 0}%)
+          {formatNumberShort(lastItem?.subscribers || 0)} ({lastItem?.rate || 0}
+          %)
         </p>
         <p className="text-grey-dark">Past 28 days</p>
       </div>
