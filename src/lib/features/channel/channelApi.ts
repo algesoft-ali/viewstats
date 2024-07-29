@@ -95,7 +95,7 @@ const channelApi = baseApi.injectEndpoints({
           const { data } = await queryFulfilled;
           const firstItem = data?.data[0];
           const lastItem = data?.data[data?.data?.length - 1];
-          const totalSubs = lastItem?.subscribers - firstItem?.subscribers;
+          const totalSubs = lastItem?.subscribers - firstItem?.subscribers || 0;
 
           dispatch(setChannelInfo({ field: "channelSubs", value: totalSubs }));
         } catch (error) {
