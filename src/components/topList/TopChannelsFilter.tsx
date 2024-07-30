@@ -14,6 +14,14 @@ const TopChannelsFilter: FC<IProps> = ({ filter, setFilter }) => {
   const { theme } = useTheme();
   const [filterOpen, setFilterOpen] = useState(true);
 
+  const handleClear = () => {
+    setFilter({
+      type: "totalSubscribers",
+      category: "all",
+      country: "all",
+    });
+  };
+
   return (
     <div className="border rounded-lg border-grey-base overflow-hidden shadow-card2 hover:shadow-card duration-200 transition-all">
       <div
@@ -39,7 +47,10 @@ const TopChannelsFilter: FC<IProps> = ({ filter, setFilter }) => {
         )}
       >
         <div className="flex flex-col gap-6 px-4 py-6">
-          <button className="border border-grey-dark rounded-lg py-3 w-full font-semibold">
+          <button
+            className="border border-grey-dark rounded-lg py-3 w-full font-semibold"
+            onClick={handleClear}
+          >
             Clear
           </button>
 
@@ -50,7 +61,7 @@ const TopChannelsFilter: FC<IProps> = ({ filter, setFilter }) => {
             </label>
             <select
               name="type"
-              className="block outline-none border border-grey-base rounded-lg py-3 px-4 w-full mt-2"
+              className="block outline-none border border-grey-base rounded-lg py-3 px-4 w-full mt-2 cursor-pointer"
               value={filter.type}
               onChange={(e) =>
                 setFilter((prev) => ({ ...prev, type: e?.target?.value }))
@@ -68,7 +79,7 @@ const TopChannelsFilter: FC<IProps> = ({ filter, setFilter }) => {
             </label>
             <select
               name="country"
-              className="block outline-none border border-grey-base rounded-lg py-3 px-4 w-full mt-2"
+              className="block outline-none border border-grey-base rounded-lg py-3 px-4 w-full mt-2 cursor-pointer"
               value={filter.country}
               onChange={(e) =>
                 setFilter((prev) => ({ ...prev, country: e?.target?.value }))
@@ -77,7 +88,9 @@ const TopChannelsFilter: FC<IProps> = ({ filter, setFilter }) => {
               <option value="all">All</option>
               <option value="us">United States</option>
               <option value="in">India</option>
-              <option value="bn">Bangladesh</option>
+              <option value="bd">Bangladesh</option>
+              <option value="de">Germany</option>
+              <option value="jp">Japan</option>
             </select>
           </div>
 
@@ -88,7 +101,7 @@ const TopChannelsFilter: FC<IProps> = ({ filter, setFilter }) => {
             </label>
             <select
               name="category"
-              className="block outline-none border border-grey-base rounded-lg py-3 px-4 w-full mt-2"
+              className="block outline-none border border-grey-base rounded-lg py-3 px-4 w-full mt-2 cursor-pointer"
               value={filter.category}
               onChange={(e) =>
                 setFilter((prev) => ({ ...prev, category: e?.target?.value }))
@@ -98,6 +111,8 @@ const TopChannelsFilter: FC<IProps> = ({ filter, setFilter }) => {
               <option value="entertainment">Entertainment</option>
               <option value="comedy">Comedy</option>
               <option value="education">Education</option>
+              <option value="music">Music</option>
+              <option value="gaming">Gaming</option>
             </select>
           </div>
         </div>

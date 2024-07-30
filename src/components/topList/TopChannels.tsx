@@ -35,13 +35,13 @@ const TopChannels = () => {
         Top 100 Subscribed YouTube Channels
       </h4>
 
-      <div className="grid grid-cols-12 gap-4 mt-6">
-        <div className="col-span-12 xl:col-span-4">
+      <div className="flex flex-col xl:flex-row gap-4 mt-6">
+        <div className="w-full xl:w-[480px]">
           <TopChannelsFilter filter={filter} setFilter={setFilter} />
         </div>
-        <div className="col-span-12 xl:col-span-8">
-          <div className="border border-grey-base rounded-lg overflow-hidden shadow-card2">
-            <table className="w-full">
+        <div className="w-full">
+          <div className="border border-grey-base rounded-lg overflow-y-hidden shadow-card2">
+            <table className="w-full overflow-x-scroll min-w-[560px]">
               <thead>
                 <tr>
                   <th className="pl-4 py-4 text-left text-sm !font-normal">
@@ -56,6 +56,9 @@ const TopChannels = () => {
                   <th className="py-4 text-left text-sm !font-normal">
                     Total Views
                   </th>
+                  <th className="py-4 text-left text-sm !font-normal">
+                    Country
+                  </th>
                 </tr>
               </thead>
               {isLoading ? (
@@ -68,6 +71,9 @@ const TopChannels = () => {
                         i === 0 ? "border-t-2" : "border-t"
                       )}
                     >
+                      <td className="py-4 px-4">
+                        <Skeleton />
+                      </td>
                       <td className="py-4 px-4">
                         <Skeleton />
                       </td>
@@ -97,7 +103,7 @@ const TopChannels = () => {
                       }
                     >
                       <td className="pl-4 font-semibold">{i + 1}</td>
-                      <td>
+                      <td className="px-2">
                         <div className="flex items-center justify-start gap-3 py-4">
                           <Image
                             src={item?.logo as string}
@@ -115,8 +121,21 @@ const TopChannels = () => {
                           </div>
                         </div>
                       </td>
-                      <td>{formatNumberShort(item?.totalSubscribers)}</td>
-                      <td>{formatNumberShort(item?.totalViews)}</td>
+                      <td className="px-2">
+                        {formatNumberShort(item?.totalSubscribers)}
+                      </td>
+                      <td className="px-2">
+                        {formatNumberShort(item?.totalViews)}
+                      </td>
+                      <td title={item?.country} className="uppercase px-2">
+                        <Image
+                          src={`https://flagcdn.com/w40/${item?.country}.png`}
+                          alt="flag"
+                          width={30}
+                          height={30}
+                          className="object-cover"
+                        />
+                      </td>
                     </tr>
                   ))}
                 </tbody>

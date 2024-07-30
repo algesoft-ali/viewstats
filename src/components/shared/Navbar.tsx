@@ -11,6 +11,8 @@ import SelectMenu from "./SelectMenu";
 import { useAppSelector } from "@/lib/hooks";
 import { useGetUserQuery } from "@/lib/features/user/userApi";
 import { getCookie } from "cookies-next";
+import { useEffect, useState } from "react";
+import { useWindowWidth } from "@react-hook/window-size";
 
 export const topListOptions = [
   {
@@ -45,23 +47,36 @@ const moreToolOptions = [
 ];
 
 const Navbar = () => {
+  const [logoPath, setLogoPath] = useState("/images/logo.svg");
+  const windowWidth = useWindowWidth();
+
   const { theme, setTheme } = useTheme();
   const { user } = useAppSelector((state) => state.user);
-  const { isLoading, isSuccess } = useGetUserQuery(
+
+  const {} = useGetUserQuery(
     {},
     {
       skip: getCookie("accessToken") ? false : true,
     }
   );
+
+  useEffect(() => {
+    if (theme === "light") {
+      setLogoPath("/images/logo.svg");
+    } else {
+      setLogoPath("/images/logo_white.svg");
+    }
+  }, [theme]);
+
   return (
     <nav className="py-3 px-6 sticky top-0 z-[99] bg-background/50 backdrop-blur-md">
       <div className="max-w-[1920px] flex items-center justify-between">
         <div className="flex items-center gap-4">
           {/* Logo */}
           <Link href="/">
-            {theme === "light" ? (
+            {windowWidth > 768 ? (
               <Image
-                src="/images/logo.svg"
+                src={logoPath}
                 alt="Logo"
                 width={270}
                 height={50}
@@ -70,16 +85,20 @@ const Navbar = () => {
               />
             ) : (
               <Image
-                src="/images/logo_white.svg"
+                src="/images/logo_icon.svg"
                 alt="Logo"
-                width={270}
-                height={50}
-                className="cursor-pointer"
+                width={40}
+                height={40}
+                className="cursor-pointer rounded-full"
                 priority
               />
             )}
           </Link>
-          <SelectMenu label="Top Lists" options={topListOptions} className="hidden lg:block" />
+          <SelectMenu
+            label="Top Lists"
+            options={topListOptions}
+            className="hidden lg:block"
+          />
           <SelectMenu
             label="More Tools"
             options={moreToolOptions}
