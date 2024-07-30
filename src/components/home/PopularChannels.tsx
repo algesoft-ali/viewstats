@@ -7,7 +7,7 @@ const PopularChannels = () => {
   const { data } = useGetPopularChannelsQuery({});
 
   return (
-    <div className="!w-[668px]">
+    <div className="max-md:px-4 w-full md:!w-[668px]">
       <h5 className="font-semibold">Popular Channels</h5>
 
       <div className="mt-3 flex items-center gap-4 flex-wrap">

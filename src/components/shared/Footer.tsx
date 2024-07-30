@@ -55,7 +55,7 @@ const footerLinks = [
 const Footer = () => {
   return (
     <footer className="px-4 border-t border-secondary-background py-6">
-      <div className="container flex items-center justify-between">
+      <div className="container flex items-center justify-between flex-wrap gap-6">
         {/* Social Media */}
         <div className="flex items-center gap-4">
           {socialLinks.map((link, index) => (
@@ -74,7 +74,7 @@ const Footer = () => {
         </div>
 
         {/* Footer Links Center */}
-        <div className="text-grey-darker text-sm flex items-center gap-10">
+        <div className="text-grey-darker text-sm flex items-center flex-wrap gap-4 md:gap-10">
           {footerLinks?.slice(0, 3)?.map((item, i) => (
             <Link
               key={i}

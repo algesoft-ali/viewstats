@@ -7,7 +7,7 @@ const HomeSearchBar = () => {
   const [searchInput, setSearchInput] = useState("");
 
   return (
-    <div className="home_search_bar !w-[668px] transition-all duration-200">
+    <div className="home_search_bar w-full md:!w-[668px] transition-all duration-200">
       <div className="bg-background rounded-[34px] overflow-hidden transition-all duration-200">
         <div className=" px-3 py-2  flex items-center justify-between gap-3">
           <input

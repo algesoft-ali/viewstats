@@ -16,12 +16,12 @@ export const topListOptions = [
   {
     label: "Top Channels",
     link: "/top-list?category=channels",
-    key: "channels"
+    key: "channels",
   },
   {
     label: "Top Videos",
     link: "/top-list?category=videos",
-    key: "videos"
+    key: "videos",
   },
 ];
 
@@ -79,17 +79,17 @@ const Navbar = () => {
               />
             )}
           </Link>
-          <SelectMenu label="Top Lists" options={topListOptions} />
+          <SelectMenu label="Top Lists" options={topListOptions} className="hidden lg:block" />
           <SelectMenu
             label="More Tools"
             options={moreToolOptions}
-            className="min-w-60"
+            className="hidden lg:block min-w-60"
           />
         </div>
 
         {/* Theme Toggle */}
         <div className="flex items-center gap-4">
-          <button className="text-white bg-[#4262ff] hover:bg-[#334dcc] flex items-center gap-2 px-6 py-2.5 rounded-lg font-bold transition-all duration-200">
+          <button className="hidden xl:flex text-white bg-[#4262ff] hover:bg-[#334dcc] items-center gap-2 px-6 py-2.5 rounded-lg font-bold transition-all duration-200">
             <span>Pro Tools</span>
             <span className="font-normal bg-[#5c71d6] px-2 py-.5 rounded-full text-sm">
               New
