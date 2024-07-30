@@ -12,18 +12,16 @@ import { useAppSelector } from "@/lib/hooks";
 import { useGetUserQuery } from "@/lib/features/user/userApi";
 import { getCookie } from "cookies-next";
 
-const topListOptions = [
+export const topListOptions = [
   {
-    label: "Top Subscribers",
-    link: "/top-list?category=subscribers",
+    label: "Top Channels",
+    link: "/top-list?category=channels",
+    key: "channels"
   },
   {
-    label: "Top Views",
-    link: "/top-list?category=views",
-  },
-  {
-    label: "Tob Subs Gained",
-    link: "/top-list?category=subs-gained",
+    label: "Top Videos",
+    link: "/top-list?category=videos",
+    key: "videos"
   },
 ];
 
