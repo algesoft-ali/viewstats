@@ -21,13 +21,18 @@ type TDailyViewsRequest = {
   video?: string;
 };
 
+interface IChannelQueryParams extends IQueryParams {
+  country?: string;
+  category?: string;
+}
+
 const channelApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     //  ----- get all channels
-    getAllChannels: builder.query<IGetAllResponse<IChannel>, IQueryParams>({
-      query: ({ limit, page, search, sortBy, sortOrder }) => ({
+    getAllChannels: builder.query<IGetAllResponse<IChannel>, IChannelQueryParams>({
+      query: ({ limit, page, search, sortBy, sortOrder, country, category }) => ({
         url: `/channel`,
-        params: { limit, page, search, sortBy, sortOrder },
+        params: { limit, page, search, sortBy, sortOrder, country, category },
       }),
     }),
 
