@@ -114,13 +114,13 @@ const TopVideos = () => {
                             />
                           </div>
 
-                          <p>{item?.title}</p>
+                          <p className="max-w-[300px] truncate">{item?.title}</p>
                         </div>
                       </td>
                       <td className="px-2 text-green-500">
                         {formatNumberWithCommas(item?.totalViews)}
                       </td>
-                      <td className="px-2">
+                      <td className="px-2 min-w-28">
                         {moment(item?.uploadDate).fromNow()}
                       </td>
 
@@ -133,7 +133,7 @@ const TopVideos = () => {
                             height={30}
                             className="object-cover"
                           />
-                          <p>{item?.channel?.name}</p>
+                          <p className="max-w-28 truncate">{item?.channel?.name}</p>
                         </div>
                       </td>
                     </tr>
