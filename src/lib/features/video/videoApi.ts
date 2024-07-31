@@ -9,7 +9,8 @@ interface IVideoQueryParams extends IQueryParams {
   type?: string;
   country?: string;
   category?: string;
-  populate?: boolean
+  populate?: boolean;
+  channel?: string;
 }
 
 export const videoApi = baseApi.injectEndpoints({
@@ -26,6 +27,7 @@ export const videoApi = baseApi.injectEndpoints({
         category,
         type,
         populate,
+        channel,
       }) => ({
         url: "/video",
         params: {
@@ -37,12 +39,12 @@ export const videoApi = baseApi.injectEndpoints({
           country,
           category,
           type,
-          populate
+          populate,
+          channel,
         },
       }),
     }),
   }),
 });
 
-
-export const { useGetAllVideosQuery } = videoApi
+export const { useGetAllVideosQuery } = videoApi;
