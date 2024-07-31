@@ -39,6 +39,19 @@ export interface IChannel {
   updatedAt: Date;
 }
 
+export interface IVideo {
+  _id: string;
+  title: string;
+  thumbnail: string;
+  duration: string;
+  uploadDate: Date | string;
+  totalViews: number;
+  type: "long" | "shorts";
+  channel: IChannel ;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface IUser {
   name: string;
   email: string;

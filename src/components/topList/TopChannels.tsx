@@ -5,6 +5,7 @@ import Image from "next/image";
 import TopChannelsFilter from "./TopChannelsFilter";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Skeleton from "../shared/Skeleton";
 
 export type ITopChannelFilter = {
   type: string;
@@ -20,7 +21,7 @@ const TopChannels = () => {
     country: "all",
   });
 
-  const { data, isLoading } = useGetAllChannelsQuery({
+  const { data, isLoading, isFetching } = useGetAllChannelsQuery({
     page: 1,
     limit: 100,
     sortBy: filter.type,
@@ -61,7 +62,7 @@ const TopChannels = () => {
                   </th>
                 </tr>
               </thead>
-              {isLoading ? (
+              {isFetching ? (
                 <tbody>
                   {Array.from({ length: 10 })?.map((_, i) => (
                     <tr
@@ -145,12 +146,6 @@ const TopChannels = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-const Skeleton = () => {
-  return (
-    <div className="bg-grey-base animate-pulse min-h-2 min-w-6 rounded"></div>
   );
 };
 

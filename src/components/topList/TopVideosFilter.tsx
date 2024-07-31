@@ -1,28 +1,29 @@
 import { useTheme } from "next-themes";
+import { Dispatch, FC, SetStateAction, useState } from "react";
+import { ITopVideoFilter } from "./TopVideos";
+import { categoryOptions, countryOptions } from "@/constants/filterOptions";
+import clsx from "clsx";
 import ArrowDownIcon from "../icons/ArrowDownIcon";
 import FilterIcon from "../icons/FilterIcon";
-import { Dispatch, FC, SetStateAction, useState } from "react";
-import clsx from "clsx";
-import { ITopChannelFilter } from "./TopChannels";
-import { categoryOptions, countryOptions } from "@/constants/filterOptions";
+import YTIcon from "../icons/YTIcon";
+import ShortsIcon from "../icons/ShortsIcon";
 
 type IProps = {
-  filter: ITopChannelFilter;
-  setFilter: Dispatch<SetStateAction<ITopChannelFilter>>;
+  filter: ITopVideoFilter;
+  setFilter: Dispatch<SetStateAction<ITopVideoFilter>>;
 };
 
-const TopChannelsFilter: FC<IProps> = ({ filter, setFilter }) => {
+const TopVideosFilter: FC<IProps> = ({ filter, setFilter }) => {
   const { theme } = useTheme();
   const [filterOpen, setFilterOpen] = useState(true);
 
   const handleClear = () => {
     setFilter({
-      type: "totalSubscribers",
+      type: "all",
       category: "all",
       country: "all",
     });
   };
-
   return (
     <div className="border rounded-lg border-grey-base overflow-hidden shadow-card2 hover:shadow-card duration-200 transition-all">
       <div
@@ -56,21 +57,34 @@ const TopChannelsFilter: FC<IProps> = ({ filter, setFilter }) => {
           </button>
 
           {/* Type */}
-          <div>
-            <label htmlFor="type" className="font-semibold">
-              Type
-            </label>
-            <select
-              name="type"
-              className="block outline-none border border-grey-base rounded-lg py-3 px-4 w-full mt-2 cursor-pointer"
-              value={filter.type}
-              onChange={(e) =>
-                setFilter((prev) => ({ ...prev, type: e?.target?.value }))
-              }
+          <div className="flex items-center w-full justify-between gap-3">
+            <button
+              className={clsx(
+                "w-full rounded-lg border border-grey-base py-3 px-4 flex items-center gap-2 justify-center font-medium hover:bg-foreground hover:text-background duration-200 transition-all",
+                filter.type === "all" && "bg-foreground text-background"
+              )}
+              onClick={() => setFilter(prev => ({...prev, type: "all"}))}
             >
-              <option value="totalSubscribers">Most Subscribers</option>
-              <option value="totalViews">Most Views</option>
-            </select>
+              All
+            </button>
+            <button
+              className={clsx(
+                "w-full rounded-lg border border-grey-base py-3 px-4 flex items-center gap-2 justify-center font-medium hover:bg-foreground hover:text-background duration-200 transition-all",
+                filter.type === "long" && "bg-foreground text-background"
+              )}
+              onClick={() => setFilter(prev => ({...prev, type: "long"}))}
+            >
+              <YTIcon color="#ff0000" size={20} /> Longs
+            </button>
+            <button
+              className={clsx(
+                "w-full rounded-lg border border-grey-base py-3 px-4 flex items-center gap-2 justify-center font-medium hover:bg-foreground hover:text-background duration-200 transition-all",
+                filter.type === "short" && "bg-foreground text-background"
+              )}
+              onClick={() => setFilter(prev => ({...prev, type: "short"}))}
+            >
+              <ShortsIcon /> Shorts
+            </button>
           </div>
 
           {/* Country */}
@@ -122,4 +136,4 @@ const TopChannelsFilter: FC<IProps> = ({ filter, setFilter }) => {
   );
 };
 
-export default TopChannelsFilter;
+export default TopVideosFilter;
