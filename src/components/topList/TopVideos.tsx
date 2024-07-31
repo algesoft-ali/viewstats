@@ -124,7 +124,7 @@ const TopVideos = () => {
                         {moment(item?.uploadDate).fromNow()}
                       </td>
 
-                      <td className="uppercase px-2">
+                      <td className="px-2">
                         <div className="flex items-center gap-2">
                           <Image
                             src={item?.channel?.logo as any}
@@ -133,7 +133,7 @@ const TopVideos = () => {
                             height={30}
                             className="object-cover"
                           />
-                          <p className="max-w-28 truncate">{item?.channel?.name}</p>
+                          <p className="max-w-24 truncate">{item?.channel?.name}</p>
                         </div>
                       </td>
                     </tr>
