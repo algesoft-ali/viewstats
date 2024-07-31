@@ -63,7 +63,7 @@ const TopVideosFilter: FC<IProps> = ({ filter, setFilter }) => {
                 "w-full rounded-lg border border-grey-base py-3 px-4 flex items-center gap-2 justify-center font-medium hover:bg-foreground hover:text-background duration-200 transition-all",
                 filter.type === "all" && "bg-foreground text-background"
               )}
-              onClick={() => setFilter(prev => ({...prev, type: "all"}))}
+              onClick={() => setFilter((prev) => ({ ...prev, type: "all" }))}
             >
               All
             </button>
@@ -72,7 +72,7 @@ const TopVideosFilter: FC<IProps> = ({ filter, setFilter }) => {
                 "w-full rounded-lg border border-grey-base py-3 px-4 flex items-center gap-2 justify-center font-medium hover:bg-foreground hover:text-background duration-200 transition-all",
                 filter.type === "long" && "bg-foreground text-background"
               )}
-              onClick={() => setFilter(prev => ({...prev, type: "long"}))}
+              onClick={() => setFilter((prev) => ({ ...prev, type: "long" }))}
             >
               <YTIcon color="#ff0000" size={20} /> Longs
             </button>
@@ -81,10 +81,32 @@ const TopVideosFilter: FC<IProps> = ({ filter, setFilter }) => {
                 "w-full rounded-lg border border-grey-base py-3 px-4 flex items-center gap-2 justify-center font-medium hover:bg-foreground hover:text-background duration-200 transition-all",
                 filter.type === "short" && "bg-foreground text-background"
               )}
-              onClick={() => setFilter(prev => ({...prev, type: "short"}))}
+              onClick={() => setFilter((prev) => ({ ...prev, type: "short" }))}
             >
               <ShortsIcon /> Shorts
             </button>
+          </div>
+
+          {/* Category */}
+          <div>
+            <label htmlFor="category" className="font-semibold">
+              Category
+            </label>
+            <select
+              name="category"
+              className="block outline-none border border-grey-base rounded-lg py-3 px-4 w-full mt-2 cursor-pointer"
+              value={filter.category}
+              onChange={(e) =>
+                setFilter((prev) => ({ ...prev, category: e?.target?.value }))
+              }
+            >
+              <option value="all">All</option>
+              {categoryOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Country */}
@@ -103,28 +125,6 @@ const TopVideosFilter: FC<IProps> = ({ filter, setFilter }) => {
             >
               <option value="all">All</option>
               {countryOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Category */}
-          <div>
-            <label htmlFor="category" className="font-semibold">
-              Category
-            </label>
-            <select
-              name="category"
-              className="block outline-none border border-grey-base rounded-lg py-3 px-4 w-full mt-2 cursor-pointer"
-              value={filter.category}
-              onChange={(e) =>
-                setFilter((prev) => ({ ...prev, category: e?.target?.value }))
-              }
-            >
-              <option value="all">All</option>
-              {categoryOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>

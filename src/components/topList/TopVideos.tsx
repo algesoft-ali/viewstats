@@ -27,7 +27,7 @@ const TopVideos = () => {
   const { data, isFetching } = useGetAllVideosQuery({
     page: 1,
     limit: 100,
-    channel: true,
+    populate: true,
     type: filter.type !== "all" ? filter.type : undefined,
     category: filter.category !== "all" ? filter.category : undefined,
     // country: filter.country !== "all" ? filter.country : undefined,
