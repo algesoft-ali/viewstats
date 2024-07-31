@@ -30,7 +30,7 @@ const TopVideos = () => {
     channel: true,
     type: filter.type !== "all" ? filter.type : undefined,
     category: filter.category !== "all" ? filter.category : undefined,
-    country: filter.country !== "all" ? filter.country : undefined,
+    // country: filter.country !== "all" ? filter.country : undefined,
     sortBy: "totalViews",
     sortOrder: "desc",
   });

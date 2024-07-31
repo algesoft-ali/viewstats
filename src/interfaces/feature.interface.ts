@@ -47,6 +47,7 @@ export interface IVideo {
   uploadDate: Date | string;
   totalViews: number;
   type: "long" | "shorts";
+  category: string;
   channel: IChannel ;
   createdAt: Date;
   updatedAt: Date;
