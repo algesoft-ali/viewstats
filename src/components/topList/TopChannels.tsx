@@ -90,6 +90,17 @@ const TopChannels = () => {
                     </tr>
                   ))}
                 </tbody>
+              ) : !data?.meta?.total ? (
+                <tbody>
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="text-center font-medium py-20 border-t border-secondary-background"
+                    >
+                      No data found
+                    </td>
+                  </tr>
+                </tbody>
               ) : (
                 <tbody>
                   {data?.data?.map((item, i) => (

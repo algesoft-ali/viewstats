@@ -90,6 +90,17 @@ const TopVideos = () => {
                     </tr>
                   ))}
                 </tbody>
+              ) : !data?.meta?.total ? (
+                <tbody>
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="text-center font-medium py-20 border-t border-secondary-background"
+                    >
+                      No data found
+                    </td>
+                  </tr>
+                </tbody>
               ) : (
                 <tbody>
                   {data?.data?.map((item, i) => (
@@ -114,7 +125,9 @@ const TopVideos = () => {
                             />
                           </div>
 
-                          <p className="max-w-[300px] truncate">{item?.title}</p>
+                          <p className="max-w-[300px] truncate">
+                            {item?.title}
+                          </p>
                         </div>
                       </td>
                       <td className="px-2 text-green-500">
@@ -133,7 +146,9 @@ const TopVideos = () => {
                             height={30}
                             className="object-cover"
                           />
-                          <p className="max-w-24 truncate">{item?.channel?.name}</p>
+                          <p className="max-w-24 truncate">
+                            {item?.channel?.name}
+                          </p>
                         </div>
                       </td>
                     </tr>
