@@ -34,7 +34,7 @@ const sortOptions = [
 const ChannelVideos = () => {
   const { channelId } = useAppSelector((state) => state.channel);
   const [filter, setFilter] = useState<IFilter>({
-    type: "short",
+    type: "long",
     search: "",
     sort: "-uploadDate",
   });
