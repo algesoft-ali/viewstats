@@ -1,14 +1,11 @@
-import { useGetAllChannelsQuery } from "@/lib/features/channel/channelApi";
-import { formatNumberShort, formatNumberWithCommas } from "@/utils/formatter";
+import { useGetAllVideosQuery } from "@/lib/features/video/videoApi";
+import { formatNumberWithCommas } from "@/utils/formatter";
 import clsx from "clsx";
+import moment from "moment";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Skeleton from "../shared/Skeleton";
-import TopChannelsFilter from "./TopChannelsFilter";
 import TopVideosFilter from "./TopVideosFilter";
-import { useGetAllVideosQuery } from "@/lib/features/video/videoApi";
-import moment from "moment";
 
 export type ITopVideoFilter = {
   type: string;
@@ -17,7 +14,6 @@ export type ITopVideoFilter = {
 };
 
 const TopVideos = () => {
-  const router = useRouter();
   const [filter, setFilter] = useState<ITopVideoFilter>({
     type: "all",
     category: "all",
@@ -30,7 +26,7 @@ const TopVideos = () => {
     populate: true,
     type: filter.type !== "all" ? filter.type : undefined,
     category: filter.category !== "all" ? filter.category : undefined,
-    // country: filter.country !== "all" ? filter.country : undefined,
+    country: filter.country !== "all" ? filter.country : undefined,
     sortBy: "totalViews",
     sortOrder: "desc",
   });

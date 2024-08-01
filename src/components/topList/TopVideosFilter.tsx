@@ -117,7 +117,6 @@ const TopVideosFilter: FC<IProps> = ({ filter, setFilter }) => {
             <select
               name="country"
               className="block outline-none border border-grey-base rounded-lg py-3 px-4 w-full mt-2 cursor-pointer"
-              disabled
               value={filter.country}
               onChange={(e) =>
                 setFilter((prev) => ({ ...prev, country: e?.target?.value }))
