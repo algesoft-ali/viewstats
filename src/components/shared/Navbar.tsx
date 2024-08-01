@@ -69,7 +69,7 @@ const Navbar = () => {
   }, [theme]);
 
   return (
-    <nav className="py-3 px-6 sticky top-0 z-[99] bg-background/50 backdrop-blur-md">
+    <nav className="py-3 px-6 sticky top-0 z-[99] bg-background/80 backdrop-blur-xl">
       <div className="max-w-[1920px] flex items-center justify-between">
         <div className="flex items-center gap-4">
           {/* Logo */}

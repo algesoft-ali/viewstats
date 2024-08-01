@@ -52,14 +52,15 @@ const ChannelInfoCard: FC<IProps> = ({ username }) => {
           <div className="flex items-center justify-between">
             {/* Name and logo */}
             <div className="flex items-center gap-4">
-              <Image
-                src={data?.data?.logo as string}
-                alt="logo"
-                width={110}
-                height={110}
-                className="object-cover rounded-lg"
-                priority
-              />
+              {data?.data?.logo && (
+                <Image
+                  src={data?.data?.logo as string}
+                  alt="logo"
+                  width={110}
+                  height={110}
+                  className="object-cover rounded-lg"
+                />
+              )}
               <div>
                 <div className="flex items-center gap-4">
                   <h3 className="text-3xl font-semibold">{data?.data?.name}</h3>
