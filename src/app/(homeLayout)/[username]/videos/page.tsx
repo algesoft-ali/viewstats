@@ -34,13 +34,13 @@ const sortOptions = [
 const ChannelVideos = () => {
   const { channelId } = useAppSelector((state) => state.channel);
   const [filter, setFilter] = useState<IFilter>({
-    type: "long",
+    type: "short",
     search: "",
     sort: "-uploadDate",
   });
   const debouncedSearch = useDebounce(filter.search);
 
-  const { data, isLoading } = useGetAllVideosQuery(
+  const { data, isLoading, isFetching } = useGetAllVideosQuery(
     {
       page: 1,
       limit: 100,
@@ -113,14 +113,21 @@ const ChannelVideos = () => {
       </div>
 
       {/* All Videos Card */}
-      {isLoading ? (
+      {isFetching ? (
         <Loading className="h-[500px] mt-6" />
       ) : !data?.meta?.total ? (
         <div className="h-96 grid place-items-center">
           <p className="text-lg font-semibold">No videos found</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-6">
+        <div
+          className={clsx(
+            "grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6",
+            filter.type === "long"
+              ? "lg:grid-cols-3 xl:grid-cols-4"
+              : "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+          )}
+        >
           {data?.data?.map((item, i) => (
             <ChannelVideoCard key={i} data={item} />
           ))}

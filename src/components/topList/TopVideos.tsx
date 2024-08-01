@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Skeleton from "../shared/Skeleton";
 import TopVideosFilter from "./TopVideosFilter";
+import ShortsIcon from "../icons/ShortsIcon";
 
 export type ITopVideoFilter = {
   type: string;
@@ -110,7 +111,7 @@ const TopVideos = () => {
                       <td className="pl-4 font-semibold">{i + 1}</td>
                       <td className="px-2">
                         <div className="flex items-center justify-start gap-3 py-4">
-                          <div className="w-[100px] h-[57px] overflow-hidden grid place-items-center rounded-lg">
+                          <div className="w-[100px] h-[57px] overflow-hidden grid place-items-center rounded-lg relative">
                             <Image
                               src={item?.thumbnail as string}
                               alt="image"
@@ -119,6 +120,11 @@ const TopVideos = () => {
                               className="object-cover block overflow-hidden"
                               priority
                             />
+                            {item?.type === "short" ? (
+                              <div className="absolute z-40 bottom-1 right-1">
+                                <ShortsIcon size={20} />
+                              </div>
+                            ) : null}
                           </div>
 
                           <p className="max-w-[300px] truncate">
