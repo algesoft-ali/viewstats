@@ -48,7 +48,8 @@ export interface IVideo {
   totalViews: number;
   type: "long" | "short";
   category: string;
-  channel: IChannel ;
+  channel: IChannel;
+  ytId: string;
   createdAt: Date;
   updatedAt: Date;
 }

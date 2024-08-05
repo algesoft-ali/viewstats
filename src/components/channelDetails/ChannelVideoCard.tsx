@@ -9,8 +9,15 @@ type IProps = {
 };
 
 const ChannelVideoCard: FC<IProps> = ({ data }) => {
+  const handleClick = () => {
+    window.open(`https://www.youtube.com/watch?v=${data?.ytId}`);
+  };
+
   return (
-    <div className="rounded-lg px-2 py-3 hover:bg-grey-light duration-200 transition-all cursor-pointer">
+    <div
+      className="rounded-lg px-2 py-3 hover:bg-grey-light duration-200 transition-all cursor-pointer"
+      onClick={handleClick}
+    >
       {data?.type === "long" ? (
         <div className="w-full h-[161px] overflow-hidden grid place-items-center rounded-lg">
           <Image

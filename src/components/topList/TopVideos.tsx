@@ -31,6 +31,11 @@ const TopVideos = () => {
     sortBy: "totalViews",
     sortOrder: "desc",
   });
+
+  const handleClick = (ytId: string) => {
+    window.open(`https://www.youtube.com/watch?v=${ytId}`);
+  };
+
   return (
     <div>
       <h4 className="text-2xl font-semibold">Top 100 Viewed YouTube Videos</h4>
@@ -107,6 +112,7 @@ const TopVideos = () => {
                         "text-sm hover:bg-grey-light duration-200 transition-all cursor-pointer border-secondary-background",
                         i === 0 ? "border-t-2" : "border-t"
                       )}
+                      onClick={() => handleClick(item?.ytId)}
                     >
                       <td className="pl-4 font-semibold">{i + 1}</td>
                       <td className="px-2">
