@@ -6,6 +6,7 @@ interface ChannelState {
   channelName: string;
   channelViews: number;
   channelSubs: number;
+  channelCategory: string;
   startDate: string;
   endDate: string;
   type: string;
@@ -22,6 +23,7 @@ const initialState: ChannelState = {
   channelName: "",
   channelViews: 0,
   channelSubs: 0,
+  channelCategory: "",
   startDate: moment().subtract(28, "days").format("YYYY-MM-DD"),
   endDate: moment().subtract(1, "days").format("YYYY-MM-DD"),
   type: "views",

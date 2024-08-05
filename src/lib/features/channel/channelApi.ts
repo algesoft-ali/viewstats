@@ -53,6 +53,9 @@ const channelApi = baseApi.injectEndpoints({
             dispatch(
               setChannelInfo({ field: "channelName", value: data?.data?.name })
             );
+            dispatch(
+              setChannelInfo({ field: "channelCategory", value: data?.data?.category })
+            );
             dispatch(setChannelLoading(false));
           }
         } catch (error) {
