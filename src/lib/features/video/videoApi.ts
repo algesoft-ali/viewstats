@@ -1,5 +1,6 @@
 import {
   IGetAllResponse,
+  IGetResponse,
   IQueryParams,
   IVideo,
 } from "@/interfaces/feature.interface";
@@ -44,7 +45,15 @@ export const videoApi = baseApi.injectEndpoints({
         },
       }),
     }),
+
+    // ----- get recent video
+    getRecentVideo: builder.query<IGetResponse<IVideo>, { channel: string }>({
+      query: ({ channel }) => ({
+        url: "/video/recent",
+        params: { channel },
+      }),
+    }),
   }),
 });
 
-export const { useGetAllVideosQuery } = videoApi;
+export const { useGetAllVideosQuery, useGetRecentVideoQuery } = videoApi;

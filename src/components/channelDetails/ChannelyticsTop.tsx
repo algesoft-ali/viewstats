@@ -1,16 +1,26 @@
 "use client";
 
-import moment from "moment";
-import ArrowDownIcon from "../icons/ArrowDownIcon";
-import ChannelChart from "./ChannelChart";
-import ChannelDetailsCard from "./ChannelDetailsCard";
+import { useGetRecentVideoQuery } from "@/lib/features/video/videoApi";
 import { useAppSelector } from "@/lib/hooks";
 import { formatNumberShort } from "@/utils/formatter";
+import moment from "moment";
+import ArrowDownIcon from "../icons/ArrowDownIcon";
+import Loading from "../shared/Loading";
+import ChannelChart from "./ChannelChart";
+import ChannelDetailsCard from "./ChannelDetailsCard";
 
 const ChannelyticsTop = () => {
-  const { startDate, endDate, channelViews, channelSubs } = useAppSelector(
-    (state) => state.channel
-  );
+  const { startDate, endDate, channelViews, channelSubs, channelId } =
+    useAppSelector((state) => state.channel);
+
+  const { data: recentVideo, isLoading: recentLoading } =
+    useGetRecentVideoQuery(
+      { channel: channelId },
+      {
+        skip: !channelId,
+      }
+    );
+
   return (
     <div className="my-6 grid grid-cols-12 items-start gap-6">
       {/* Left Side */}
@@ -72,28 +82,50 @@ const ChannelyticsTop = () => {
       {/* Right Side */}
       <div className="col-span-4">
         <ChannelDetailsCard>
-          <p className="text-grey-darker font-semibold mb-4">
-            Most Recent Video
-          </p>
-          <div className="w-full h-[210px] bg-[url('https://i.ytimg.com/vi_webp/4SNThp0YiU4/hqdefault.webp')] rounded-lg bg-cover bg-center"></div>
-          <div className="flex flex-col gap-3 mt-4">
-            <p className="font-medium">50 YouTubers Fight For $1,000,000</p>
-            <p className="text-grey-dark text-sm">First 4 days and 12 hours</p>
-            <div className="flex items-center justify-between">
-              <p>Estimated Rank by Views</p>
-              <div className="flex items-center gap-2">
-                1 of 10 <ArrowDownIcon className="-rotate-90" />
-              </div>
+          {recentLoading ? (
+            <Loading className="w-full h-96" />
+          ) : !recentVideo?.data ? (
+            <div className="h-96 grid place-items-center">
+              <p>No Video Found!</p>
             </div>
-            <div className="flex items-center justify-between">
-              <p>Total Views</p>
-              <p>140M </p>
-            </div>
+          ) : (
+            <>
+              <p className="text-grey-darker font-semibold mb-4">
+                Most Recent Video
+              </p>
+              <div
+                className="w-full h-auto rounded-lg"
+                style={{
+                  aspectRatio: "336/188",
+                  background: `url(${recentVideo?.data?.thumbnail})`,
+                  backgroundPosition: "center center",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                }}
+              ></div>
+              <div className="flex flex-col gap-3 mt-4">
+                <p className="font-medium">{recentVideo?.data?.title}</p>
+                <p className="text-grey-dark text-sm">
+                  First 4 days and 12 hours
+                </p>
+                <div className="flex items-center justify-between">
+                  <p>Estimated Rank by Views</p>
+                  <div className="flex items-center gap-2">
+                    {Math.ceil(Math.random() * 9)} of 10{" "}
+                    <ArrowDownIcon className="-rotate-90" />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <p>Total Views</p>
+                  <p>{formatNumberShort(recentVideo?.data?.totalViews)} </p>
+                </div>
 
-            <button className="w-full py-2 bg-primary text-white rounded-lg hover:saturate-50 duration-200 transition-all">
-              More Video Analytics
-            </button>
-          </div>
+                <button className="w-full py-2 bg-primary text-white rounded-lg hover:saturate-50 duration-200 transition-all">
+                  More Video Analytics
+                </button>
+              </div>
+            </>
+          )}
         </ChannelDetailsCard>
       </div>
     </div>
